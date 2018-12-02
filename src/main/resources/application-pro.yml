@@ -1,0 +1,10 @@
+log:
+  path: F://logs//app_pro_logs
+  level: ERROR
+  
+server:
+  port: 8080
+
+
+
+

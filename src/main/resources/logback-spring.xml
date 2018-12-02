@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true" scan="true" scanPeriod="30 seconds">
+	<springProperty scope="context" name="logLevel" source="log.level"  defaultValue = "ERROR"/>
+	<springProperty scope="context" name="logPath" source="log.path" defaultValue = "log"/>
+
+	<!-- 标准输入到控制台 -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d[%p](%file:%line\)%m%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+
+
+	<appender name="FILE-OUT-INFO"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${logPath}/info.log</file>
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss}[%level][%class:%line]-%m%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${logPath}/info.%d{yyyy-MM-dd}.%i.log.zip
+			</fileNamePattern>
+			<!-- 10 days -->
+			<maxHistory>10</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<!-- maxFileSize:这是活动文件的大小，默认值是10MB，测试时可改成1KB看效果 -->
+				<maxFileSize>20MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+	</appender>
+
+	<appender name="FILE-OUT-ERROR"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${logPath}/error.log</file>
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss}[%level][%class:%line]-%m%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${logPath}/error.%d{yyyy-MM-dd}.%i.log.zip
+			</fileNamePattern>
+			<!-- 10 days -->
+			<maxHistory>10</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<!-- maxFileSize:这是活动文件的大小，默认值是10MB，测试时可改成1KB看效果 -->
+				<maxFileSize>20MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+	</appender>
+
+
+	<root level="${logLevel}">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE-OUT-${logLevel}" />
+	</root>
+
+
+	<!-- 指定项目中某个包，当有日志操作行为时的日志记录级别 -->
+	<!-- com.liyan为根包，也就是只要是发生在这个根包下面的所有日志操作行为的权限都是DEBUG -->
+	<!-- 级别依次为【从高到低】：FATAL > ERROR > WARN > INFO > DEBUG > TRACE -->
+	<!-- <logger name="com.liyan" level="DEBUG"> -->
+	<!-- <appender-ref ref="demolog" /> -->
+	<!-- </logger> -->
+</configuration>
