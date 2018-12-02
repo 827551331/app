@@ -4,3 +4,6 @@ spring:
   devtools:
     restart:
       log-condition-evaluation-delta: false
+  http:
+    multipart:
+      max-file-size: 5MB
