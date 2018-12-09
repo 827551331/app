@@ -6,3 +6,12 @@ server:
   port: 8080
 param:
   uuid: ${random.uuid}
+
+# DataSource Config
+spring:
+  datasource:
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    data: classpath:db/data-h2.sql
+    url: jdbc:sqlserver://192.168.1.200:1433;databaseName=WNT_万山
+    username: sa
+    password:
