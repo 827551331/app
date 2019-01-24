@@ -1,9 +1,9 @@
 log:
-  path: D://app//logs//app_dev_logs
+  path: D://apps//logs//app_dev_logs
   level: INFO
 
 server:
-  port: 8806
+  port: 9000
 param:
   uuid: ${random.uuid}
 

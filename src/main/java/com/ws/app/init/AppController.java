@@ -15,6 +15,6 @@ public class AppController {
 
     @RequestMapping(value = "/login")
     public List<Map<String,Object>> hello() {
-        return loginServiceImpl.login();
+        return loginServiceImpl.login("");
     }
 }
