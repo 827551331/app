@@ -10,7 +10,7 @@ import java.util.Map;
 @Service
 public interface LoginService {
 
-    public List<Map<String,Object>> login();
+    public List<Map<String,Object>> login(String userNo);
 
     public JSONObject queryFee(Map<String,Object> map);
 

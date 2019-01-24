@@ -20,15 +20,15 @@ public class LoginServiceImpl implements LoginService {
     private LoginMapper loginMapper;
 
     @Override
-    public List<Map<String, Object>> login() {
-        List<Map<String, Object>> result = loginMapper.login();
+    public List<Map<String, Object>> login(String userNo) {
+        List<Map<String, Object>> result = loginMapper.login(userNo);
         System.out.println(result);
         log.info(result);
         return result;
     }
 
     @Override
-    public JSONObject queryFee(Map<String,Object> map) {
+    public JSONObject queryFee(Map<String, Object> map) {
         loginMapper.queryFee(map);
         System.out.println(map.get("result"));
         return JSONObject.parseObject((String) map.get("result"));
