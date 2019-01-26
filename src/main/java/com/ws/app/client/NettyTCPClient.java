@@ -1,6 +1,6 @@
 package com.ws.app.client;
 
-import com.ws.app.client.handler.HeartBeatTimerHandler;
+import com.ws.app.client.handler.TestHandler;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -29,11 +29,11 @@ public class NettyTCPClient {
             @Override
             public void initChannel(SocketChannel ch) {
                 ch.pipeline().addLast(new LineBasedFrameDecoder(1024 * 8));
-                ch.pipeline().addLast(new HeartBeatTimerHandler());
+                ch.pipeline().addLast(new TestHandler());
             }
         });
         // 4.建立连接
-        this.connect(bootstrap, "39.104.114.107", 8000);
+        this.connect(bootstrap, "827551331wyw.eicp.net", 47918);
     }
 
     private void connect(Bootstrap bootstrap, String host, int port) {
