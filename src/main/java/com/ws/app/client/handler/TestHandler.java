@@ -64,6 +64,8 @@ public class TestHandler extends SimpleChannelInboundHandler<ByteBuf> {
                 param_map.put("userNo", param.getString("userNo"));
                 param_map.put("consNo", param.getString("consNo"));
                 param_map.put("endCode", param.getString("endCode"));
+                System.out.println("------------上传指数参数-----------");
+                System.out.println(param_map.toString());
                 JSONObject upload_result = asi.upLoad(param_map);
                 if (upload_result == null) {
                     param.put("rtnCode", "1002");

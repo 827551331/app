@@ -28,12 +28,12 @@ public interface LoginMapper {
      * @param userNo
      * @return
      */
-    @Select({"SELECT  A.客户编码 AS consNo,A.抄表线路 AS bcId,B.线路名称 bcName,A.水表位置 sbAddr,B.CBY userName,C.操作员编码 userNo FROM T客户水表 A INNER JOIN T抄表线路 B\n" +
-            " ON A.抄表线路 = B.线路编码 AND A.部门编码 = B.营业所编码" +
-            " INNER JOIN T操作人员 C ON B.CBY = C.姓名" +
-            " WHERE A.供水情况 = '0'" +
-            " AND C.操作员编码 = #{userNo}" +
-            " GROUP BY A.客户编码,B.线路名称,A.水表位置,B.CBY,C.操作员编码,A.抄表线路" +
+    @Select({"SELECT  A.客户编码 AS consNo,A.抄表线路 AS bcId,B.线路名称 bcName,A.水表位置 sbAddr,B.CBY userName,C.操作员编码 userNo FROM T客户水表 A INNER JOIN T抄表线路 B " +
+            " ON A.抄表线路 = B.线路编码 AND A.部门编码 = B.营业所编码 " +
+            " INNER JOIN T操作人员 C ON B.CBY = C.姓名 " +
+            " WHERE A.供水情况 = '0' " +
+            " AND C.操作员编码 = #{userNo} " +
+            " GROUP BY A.客户编码,B.线路名称,A.水表位置,B.CBY,C.操作员编码,A.抄表线路 " +
             " ORDER BY B.线路名称,A.水表位置"})
     public List<Map<String, Object>> getBCInfo(String userNo);
 
@@ -44,10 +44,10 @@ public interface LoginMapper {
      * @param consNo
      * @return
      */
-    @Select({"SELECT A.客户编码 consNo,A.上月表数 startCode,A.本月表数 endCode,A.实用水量 num,B.年月 dateYM FROM t用水记录 A \n" +
+    @Select({"SELECT A.客户编码 consNo,A.上月表数 startCode,A.本月表数 endCode,A.实用水量 num,B.年月 dateYM FROM t用水记录 A " +
             " INNER JOIN  T用水年月 B ON A.用水年月 = B.年月编码 " +
-            " WHERE A.客户编码 = #{consNo}" +
-            " AND A.用水年月 BETWEEN '169' AND '179'" +
+            " WHERE A.客户编码 = #{consNo} " +
+            " AND A.用水年月 BETWEEN '169' AND '179' " +
             " GROUP BY A.客户编码,A.上月表数,A.本月表数,A.实用水量,B.年月 " +
             " ORDER BY B.年月"})
     public List<Map<String, Object>> getWaterInfo(String consNo);
