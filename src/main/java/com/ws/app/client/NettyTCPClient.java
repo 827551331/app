@@ -17,6 +17,7 @@ public class NettyTCPClient {
 
     @PostConstruct
     public void startClient() {
+        System.out.println("启动netty客户端，准备连接服务端...");
         NioEventLoopGroup workerGroup = new NioEventLoopGroup();
 
         Bootstrap bootstrap = new Bootstrap();

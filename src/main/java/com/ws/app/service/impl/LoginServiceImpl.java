@@ -21,10 +21,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public List<Map<String, Object>> login(String userNo) {
-        List<Map<String, Object>> result = loginMapper.login(userNo);
-        System.out.println(result);
-        log.info(result);
-        return result;
+        return null;
     }
 
     @Override
