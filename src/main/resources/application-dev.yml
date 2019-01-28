@@ -3,7 +3,7 @@ log:
   level: INFO
 
 server:
-  port: 9000
+  port: 9100
 param:
   uuid: ${random.uuid}
 

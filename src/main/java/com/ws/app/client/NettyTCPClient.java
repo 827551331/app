@@ -1,6 +1,7 @@
 package com.ws.app.client;
 
 import com.ws.app.client.handler.TestHandler;
+import com.ws.app.init.AppCache;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -10,6 +11,8 @@ import io.netty.handler.codec.LineBasedFrameDecoder;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @Component
 public class NettyTCPClient {
@@ -34,13 +37,44 @@ public class NettyTCPClient {
             }
         });
         // 4.建立连接
-        this.connect(bootstrap, "827551331wyw.eicp.net", 47918);
+        this.connect(bootstrap, "47.101.161.236", 9000);
+    }
+
+    /**
+     * 检查连接是否正常
+     */
+    private void check() {
+        System.out.println("启动连接检查功能，检查间隔：30秒");
+        ExecutorService singleThreadExecutor = Executors.newSingleThreadExecutor();
+        singleThreadExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    try {
+                        if (AppCache.times != 0L) {
+                            long current_times = System.currentTimeMillis();
+                            long result = (current_times - AppCache.times) / 1000;
+                            if (result > 30) {
+                                //重新连接服务端
+                                startClient();
+                            }
+                        }
+                        //检查间隔30秒
+                        Thread.sleep(30 * 1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
     private void connect(Bootstrap bootstrap, String host, int port) {
         bootstrap.connect(host, port).addListener(future -> {
             if (future.isSuccess()) {
                 System.out.println("连接成功!");
+                //启动连接检查
+                check();
             } else {
                 System.err.println("连接失败，开始重连");
                 connect(bootstrap, host, port);
@@ -50,7 +84,7 @@ public class NettyTCPClient {
         });
     }
 
-    public static void main(String[] args) {
-        new NettyTCPClient().startClient();
+    public static void main(String[] args) throws InterruptedException {
+//        new NettyTCPClient().startClient();
     }
 }

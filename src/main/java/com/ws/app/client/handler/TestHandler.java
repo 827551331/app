@@ -2,6 +2,7 @@ package com.ws.app.client.handler;
 
 import com.alibaba.fastjson.JSONObject;
 import com.ws.app.entity.ContractNO;
+import com.ws.app.init.AppCache;
 import com.ws.app.service.impl.APPServiceImpl;
 import com.ws.app.utils.EWSpringContextUtil;
 import com.ws.app.utils.Tools;
@@ -21,9 +22,10 @@ public class TestHandler extends SimpleChannelInboundHandler<ByteBuf> {
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, ByteBuf msg) throws Exception {
+        AppCache.times = System.currentTimeMillis();
+
         System.out.println(msg.toString(CharsetUtil.UTF_8));
         JSONObject param = JSONObject.parseObject(msg.toString(CharsetUtil.UTF_8));
-
         APPServiceImpl asi = (APPServiceImpl) EWSpringContextUtil.getBean("aPPServiceImpl");
 
         switch (param.getString("servCode")) {
