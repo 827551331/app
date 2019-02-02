@@ -44,13 +44,20 @@ public interface LoginMapper {
      * @param consNo
      * @return
      */
-    @Select({"SELECT A.客户编码 consNo,A.上月表数 startCode,A.本月表数 endCode,A.实用水量 num,B.年月 dateYM FROM t用水记录 A " +
-            " INNER JOIN  T用水年月 B ON A.用水年月 = B.年月编码 " +
+//    @Select({"SELECT A.客户编码 consNo,A.上月表数 startCode,A.本月表数 endCode,A.实用水量 num,B.年月 dateYM FROM t用水记录 A " +
+//            " INNER JOIN  T用水年月 B ON A.用水年月 = B.年月编码 " +
+//            " WHERE A.客户编码 = #{consNo} " +
+//            " AND A.用水年月 BETWEEN '169' AND '179' " +
+//            " GROUP BY A.客户编码,A.上月表数,A.本月表数,A.实用水量,B.年月 " +
+//            " ORDER BY B.年月"})
+    @Select({"SELECT DISTINCT(A.客户编码) consNo,MAX(A.客户名称) AS consName,MAX(B.祥细地址) AS addr,MAX(A.联系电话) phone,C.上月表数 startCode,C.本月表数 endCode,D.年月 dateYM FROM T客户资料 A INNER JOIN T客户水表 B " +
+            " ON A.客户编码 = B.客户编码 " +
+            " INNER JOIN T用水记录 C ON A.客户编码 = C.客户编码 AND A.客户编码 = C.客户编码 INNER JOIN T用水年月 D ON C.用水年月 = D.年月编码  " +
             " WHERE A.客户编码 = #{consNo} " +
-            " AND A.用水年月 BETWEEN '169' AND '179' " +
-            " GROUP BY A.客户编码,A.上月表数,A.本月表数,A.实用水量,B.年月 " +
-            " ORDER BY B.年月"})
-    public List<Map<String, Object>> getWaterInfo(String consNo);
+            " AND D.年月 BETWEEN #{startDate} AND #{endDate} " +
+            " GROUP BY A.客户编码,D.年月,C.上月表数,C.本月表数,A.客户名称 " +
+            " ORDER BY D.年月 "})
+    public List<Map<String, Object>> getWaterInfo(String consNo,String startDate,String endDate);
 
     /**
      * 上传止码

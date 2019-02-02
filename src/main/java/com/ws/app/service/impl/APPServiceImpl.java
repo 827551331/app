@@ -6,6 +6,8 @@ import com.ws.app.service.APPService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -18,13 +20,13 @@ public class APPServiceImpl implements APPService {
     @Override
     public Map<String, Object> login(String userNo) {
         Map<String, Object> result = loginMapper.login(userNo);
-        System.out.println("登录接口返回信息："+result);
+        System.out.println("登录接口返回信息：" + result);
         return result;
     }
 
     @Override
     public List<Map<String, Object>> query(String consNo) {
-        return loginMapper.getWaterInfo(consNo);
+        return loginMapper.getWaterInfo(consNo,getDate(12),getDate(1));
     }
 
     @Override
@@ -38,4 +40,14 @@ public class APPServiceImpl implements APPService {
         System.out.println(map.get("result"));
         return JSONObject.parseObject((String) map.get("result"));
     }
+
+    private String getDate(int num) {
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.MONTH, -num);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
+        String dateStr = sdf.format(c.getTime());
+        System.out.println(dateStr);
+        return dateStr;
+    }
+
 }
