@@ -26,7 +26,7 @@ public class APPServiceImpl implements APPService {
 
     @Override
     public List<Map<String, Object>> query(String consNo) {
-        return loginMapper.getWaterInfo(consNo,getDate(12),getDate(1));
+        return loginMapper.getWaterInfo(consNo, getDate(12), getDate(1));
     }
 
     @Override
@@ -46,8 +46,6 @@ public class APPServiceImpl implements APPService {
         c.add(Calendar.MONTH, -num);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
         String dateStr = sdf.format(c.getTime());
-        System.out.println(dateStr);
         return dateStr;
     }
-
 }
