@@ -26,7 +26,7 @@ public class APPServiceImpl implements APPService {
 
     @Override
     public List<Map<String, Object>> query(String consNo) {
-        return loginMapper.getWaterInfo(consNo,getDate(12),getDate(1));
+        return loginMapper.getWaterInfo(consNo, getDate(12), getDate(1));
     }
 
     @Override
@@ -39,6 +39,11 @@ public class APPServiceImpl implements APPService {
         loginMapper.uploadCode(map);
         System.out.println(map.get("result"));
         return JSONObject.parseObject((String) map.get("result"));
+    }
+
+    @Override
+    public int updatePhone(Map<String, Object> map) {
+        return loginMapper.updatePhone(map);
     }
 
     private String getDate(int num) {

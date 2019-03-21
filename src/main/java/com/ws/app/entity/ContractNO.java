@@ -26,4 +26,9 @@ public class ContractNO {
      * 上传止码信息
      */
     public static final String UPLOAD_CODE = "005";
+
+    /**
+     * 更新电话号码
+     */
+    public static final String UPDATE_PHONE = "006";
 }

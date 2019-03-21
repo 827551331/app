@@ -4,6 +4,7 @@ package com.ws.app.dao;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.mapping.StatementType;
 
 import java.util.List;
@@ -68,6 +69,10 @@ public interface LoginMapper {
     @Select("exec DBO.SJCB #{consNo},#{endCode},#{userNo},#{result,mode=OUT,jdbcType=VARCHAR}")
     @Options(statementType = StatementType.CALLABLE)
     public void uploadCode(Map<String, Object> map);
+
+
+    @Update({"UPDATE T客户资料 SET 联系电话 = #{phone} WHERE 客户编码 = #{consNo}"})
+    public int updatePhone(Map<String, Object> map);
 
     /**
      * 查询欠费

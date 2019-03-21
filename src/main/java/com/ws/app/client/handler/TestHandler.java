@@ -77,7 +77,23 @@ public class TestHandler extends SimpleChannelInboundHandler<ByteBuf> {
                     param.put("rtnData", upload_result);
                 }
                 break;
-
+            case ContractNO.UPDATE_PHONE:
+                Map<String, Object> param_phone = new HashMap<>();
+                param_phone.put("consNo", param.getString("consNo"));
+                param_phone.put("phone", param.getString("phone"));
+                System.out.println("------------修改电话号码-----------");
+                System.out.println(param_phone.toString());
+                int updatePhone_result = asi.updatePhone(param_phone);
+                JSONObject json = new JSONObject();
+                json.put("updateResult", updatePhone_result);
+                if (updatePhone_result == 0) {
+                    param.put("rtnCode", "1002");
+                    param.put("rtnData", "更新失败");
+                } else {
+                    param.put("rtnCode", "9999");
+                    param.put("rtnData", json);
+                }
+                break;
             default:
                 ctx.writeAndFlush(Tools.rtnBytebuf(param.toJSONString()));
         }

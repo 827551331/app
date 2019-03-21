@@ -17,4 +17,6 @@ public interface APPService {
 
     public JSONObject upLoad(Map<String, Object> map);
 
+    public int updatePhone(Map<String, Object> map);
+
 }
