@@ -51,8 +51,6 @@ public class APPServiceImpl implements APPService {
         c.add(Calendar.MONTH, -num);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
         String dateStr = sdf.format(c.getTime());
-        System.out.println(dateStr);
         return dateStr;
     }
-
 }
