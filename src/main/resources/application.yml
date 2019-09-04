@@ -7,6 +7,9 @@ spring:
   sevlet:
     multipart:
       max-file-size: 10MB
+  cache:
+    ehcache:
+      config: classpath:config/ehcache.xml
 
 
 
@@ -16,3 +19,6 @@ spring:
 mybatis-plus:
   type-aliases-package: com.ws.app.dao
 #  mapper-locations: classpath:mapper/*.xml
+
+
+cbuser: 1102,110207,110304,110204

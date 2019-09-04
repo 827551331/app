@@ -39,7 +39,7 @@ public interface LoginMapper {
     @Select({"SELECT B.客户编码 consNo,MAX(C.客户名称) AS consName , MAX(B.祥细地址) AS sbAddr,A.线路名称 bcName,B.水表位置 sbSite,A.线路编码 bcId FROM T抄表线路 A INNER JOIN  t客户水表 B " +
             " ON A.线路编码 = B.抄表线路 INNER JOIN  T客户资料 C ON  B.客户编码 = C.客户编码 " +
             " AND A.营业所编码 = B.部门编码 INNER JOIN T操作人员 D ON A.CBY = D.姓名 " +
-            " WHERE B.供水情况 = '0' and D.操作员编码 = #{userNo} " +
+            " WHERE D.操作员编码 = #{userNo} and  B.供水情况 = '0'" +
             " GROUP BY A.线路名称,B.水表位置,B.客户编码,A.线路编码 " +
             " ORDER BY A.线路名称 "})
     public List<Map<String, Object>> getBCInfo(String userNo);

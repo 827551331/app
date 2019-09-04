@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.ws.app.dao.LoginMapper;
 import com.ws.app.service.APPService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -29,8 +31,16 @@ public class APPServiceImpl implements APPService {
         return loginMapper.getWaterInfo(consNo, getDate(12), getDate(1));
     }
 
+    @Cacheable(cacheNames = "cbuser", key = "#userNo")
     @Override
     public List<Map<String, Object>> downLoad(String userNo) {
+        System.out.println("never use cache...");
+        return loginMapper.getBCInfo(userNo);
+    }
+
+    @CachePut(cacheNames = "cbuser", key = "#userNo")
+    @Override
+    public List<Map<String, Object>> updateDownLoad(String userNo) {
         return loginMapper.getBCInfo(userNo);
     }
 
