@@ -32,7 +32,7 @@ public class NettyTCPClient {
         bootstrap.handler(new ChannelInitializer<SocketChannel>() {
             @Override
             public void initChannel(SocketChannel ch) {
-                ch.pipeline().addLast(new LineBasedFrameDecoder(1024 * 8));
+                ch.pipeline().addLast(new LineBasedFrameDecoder(1024 * 800));
                 ch.pipeline().addLast(new TestHandler());
             }
         });

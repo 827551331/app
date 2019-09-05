@@ -5,6 +5,7 @@ import com.ws.app.entity.ContractNO;
 import com.ws.app.init.AppCache;
 import com.ws.app.service.impl.APPServiceImpl;
 import com.ws.app.utils.EWSpringContextUtil;
+import com.ws.app.utils.HDStringUtil;
 import com.ws.app.utils.Tools;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandler.Sharable;
@@ -52,7 +53,9 @@ public class TestHandler extends SimpleChannelInboundHandler<ByteBuf> {
                 }
                 break;
             case ContractNO.DOWNLOAD_CODE:
+                System.out.println("------------下载表册-----------");
                 List<Map<String, Object>> download_result = asi.downLoad(param.getString("userNo"));
+                System.out.println("表册数量：" + download_result.size());
                 if (download_result == null) {
                     param.put("rtnCode", "1002");
                     param.put("rtnData", "");
@@ -95,8 +98,8 @@ public class TestHandler extends SimpleChannelInboundHandler<ByteBuf> {
                 }
                 break;
             default:
-                ctx.writeAndFlush(Tools.rtnBytebuf(param.toJSONString()));
+                ctx.writeAndFlush(Tools.rtnBytebuf(HDStringUtil.replace(param.toJSONString())));
         }
-        ctx.writeAndFlush(Tools.rtnBytebuf(param.toJSONString()));
+        ctx.writeAndFlush(Tools.rtnBytebuf(HDStringUtil.replace(param.toJSONString())));
     }
 }
