@@ -8,17 +8,15 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.LineBasedFrameDecoder;
-import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Component
+//@Component
 public class NettyTCPClient {
 
 
-    @PostConstruct
+//    @PostConstruct
     public void startClient() {
         System.out.println("启动netty客户端，准备连接服务端...");
         NioEventLoopGroup workerGroup = new NioEventLoopGroup();
