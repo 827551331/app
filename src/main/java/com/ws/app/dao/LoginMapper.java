@@ -93,4 +93,14 @@ public interface LoginMapper {
     @Select("exec P_WNT_GOGPAY #{consNo},#{sjje},#{yjje},#{wyj},#{result,mode=OUT,jdbcType=VARCHAR}")
     @Options(statementType = StatementType.CALLABLE)
     public void writeOff(Map<String, Object> map);
+
+    /**
+     * 上传远传表止码
+     *
+     * @param map
+     * @return void
+     */
+    @Select("exec BH_CHYC #{consNo},#{endCode},#{userNo},#{result,mode=OUT,jdbcType=VARCHAR}")
+    @Options(statementType = StatementType.CALLABLE)
+    public void uploadYCCode(Map<String, Object> map);
 }

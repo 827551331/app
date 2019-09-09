@@ -22,3 +22,5 @@ mybatis-plus:
 
 
 cbuser: 1102,110207,110304,110204
+
+ycsys-url: http://211.159.148.145:6021/WSCHweb/MeterEnterServlet
