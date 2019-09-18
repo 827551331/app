@@ -1,6 +1,7 @@
 package com.ws.app.schedule;
 
 import com.ws.app.service.APPService;
+import com.ws.app.service.SynchroMeterReadService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ public class ScheduleWork {
     @Autowired
     private APPService aPPServiceImpl;
 
+    @Autowired
+    private com.ws.app.service.SynchroMeterReadService synchroMeterReadServiceImpl;
+
 
     @Scheduled(cron = "0 1 0/1 * * ?")
     public void updateDownLoad() {
@@ -27,5 +31,11 @@ public class ScheduleWork {
             logger.info("正在初始化抄表员：{}", str);
             System.out.println(aPPServiceImpl.updateDownLoad(str));
         }
+    }
+
+    @Scheduled(cron = "1 0 2 1 * ?")
+    public void updateYC() {
+        logger.info("准备同步远传系统读数...");
+        synchroMeterReadServiceImpl.synchroMeterRead();
     }
 }
