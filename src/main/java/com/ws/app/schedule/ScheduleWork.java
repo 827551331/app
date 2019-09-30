@@ -33,7 +33,7 @@ public class ScheduleWork {
         }
     }
 
-    @Scheduled(cron = "1 0 2 1 * ?")
+//    @Scheduled(cron = "1 0 2 1 * ?")
     public void updateYC() {
         logger.info("准备同步远传系统读数...");
         synchroMeterReadServiceImpl.synchroMeterRead();
